@@ -21,7 +21,7 @@ export const ResultAka: NextPage = () => {
   const rank = useAppSelector((state) => state.question.rank); //rankにquestion＋rankを代入
 
   const matches = useMediaQuery("(min-width:767px)"); //レスポンシブ設定を定義
-  const backendBaseUrl = "http://localhost:8080/recommend.php";
+  const backendBaseUrl = "http://localhost:8080";
 
   const [wineList, setWineList] = React.useState(null);
   const [loading] = React.useState(false);
@@ -67,7 +67,7 @@ export const ResultAka: NextPage = () => {
                     lineHeight: "1.1em",
                   }}
                 >
-                  {resultMessage?.name}
+                  {resultMessage?.wine_name}
                 </p>
                 <p
                   style={{
@@ -76,14 +76,14 @@ export const ResultAka: NextPage = () => {
                     lineHeight: "1.1em",
                   }}
                 >
-                  {resultMessage?.oneWord}
+                  {resultMessage?.one_word}
                 </p>
               </Typography>
 
               <Box style={{ height: "50%", width: "auto", margin: "0px auto" }}>
                 <CardMedia
                   component="img"
-                  image={`${backendBaseUrl}${resultImage?.image.src}`}
+                  image={`${backendBaseUrl}${resultImage?.wine_image}`}
                   sx={{ height: "auto", width: "8%", margin: "0px auto" }}
                 />
               </Box>

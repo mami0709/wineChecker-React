@@ -25,7 +25,6 @@ const WineCard: React.FC<{
 }> = ({ data }) => {
   // PCならtrue, mobileならfalse
   const matches = useMediaQuery("(min-width:767px)");
-  console.log(`${backendBaseUrl}${data.wine_image}`);
 
   return (
     <Link href={`/shindan/${data.id}`}>
@@ -60,7 +59,6 @@ const Recommend: NextPage = () => {
   //バックエンドとの繋ぎ込み処理
   const [loading, setLoading] = React.useState(false);
   const [wineList, setWineList] = React.useState(undefined);
-  console.log(wineList);
 
   React.useEffect(() => {
     setLoading(true);
