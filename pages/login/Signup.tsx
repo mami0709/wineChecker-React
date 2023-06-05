@@ -6,6 +6,19 @@ import Box from "@mui/material/Box";
 import { Grid, Typography, Button } from "@mui/material";
 import Link from "next/link";
 
+const textFieldStyle = {
+  width: "400px",
+  "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#683212",
+  },
+  "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#bb947c",
+  },
+  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#683212",
+  },
+};
+
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,9 +43,12 @@ const Signup = () => {
       if (error.response) {
         // サーバーが200レンジ以外のステータスで応答した場合
         setError(error.response.data.message);
-      } else {
-        // サーバーが応答しなかった場合
+      } else if (error.request) {
         setError("サーバが応答しなかったので、後でもう一度試してください。");
+      } else {
+        setError(
+          "リクエストの設定中にエラーが発生しました。再試行してください。"
+        );
       }
     }
   };
@@ -44,7 +60,7 @@ const Signup = () => {
         direction="column"
         sx={{ alignItems: "center", width: "100%", paddingTop: "80px" }}
       >
-        <Typography variant="h4">新規会員登録</Typography>
+        <Typography variant="h4">新規ユーザー登録</Typography>
         <Grid item xs={12}>
           <Box
             component="form"
@@ -67,20 +83,7 @@ const Signup = () => {
                 InputLabelProps={{
                   style: { color: "#683212" },
                 }}
-                sx={{
-                  width: "400px",
-                  "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#683212",
-                  },
-                  "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                    {
-                      borderColor: "#bb947c",
-                    },
-                  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                    {
-                      borderColor: "#683212",
-                    },
-                }}
+                sx={textFieldStyle}
               />
             </Grid>
             <Grid
@@ -103,20 +106,7 @@ const Signup = () => {
                 InputLabelProps={{
                   style: { color: "#683212" },
                 }}
-                sx={{
-                  width: "400px",
-                  "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#683212",
-                  },
-                  "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                    {
-                      borderColor: "#bb947c",
-                    },
-                  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                    {
-                      borderColor: "#683212",
-                    },
-                }}
+                sx={textFieldStyle}
               />
             </Grid>
             <span style={{ color: "gray" }}>
