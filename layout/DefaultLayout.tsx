@@ -104,6 +104,31 @@ export const DefaultLayout: React.FC<{
                   </Tabs>
                 </Box>
               </Link>
+              <Link href={"/newPost"}>
+                <Box style={{ paddingRight: "20px" }}>
+                  <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="basic tabs example"
+                    textColor="inherit"
+                    indicatorColor="secondary"
+                  >
+                    <Tab
+                      label="ワインを投稿"
+                      sx={{
+                        fontSize: "1.1rem",
+                        ":hover": {
+                          color: "black",
+                          border: "none",
+                          background: "rgba(0, 0, 0, 0.4)",
+                          background: "#DDA0DD",
+                          color: "#1b1b1b",
+                        },
+                      }}
+                    />
+                  </Tabs>
+                </Box>
+              </Link>
               <Link href={"/shindan/recommend"}>
                 <Box style={{ paddingRight: "20px" }}>
                   <Tabs
@@ -115,56 +140,6 @@ export const DefaultLayout: React.FC<{
                   >
                     <Tab
                       label="おすすめ一覧"
-                      sx={{
-                        fontSize: "1.1rem",
-                        ":hover": {
-                          color: "black",
-                          border: "none",
-                          background: "rgba(0, 0, 0, 0.4)",
-                          background: "#DDA0DD",
-                          color: "#1b1b1b",
-                        },
-                      }}
-                    />
-                  </Tabs>
-                </Box>
-              </Link>
-              <Link href={"/shindan/aka"}>
-                <Box style={{ paddingRight: "20px" }}>
-                  <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="basic tabs example"
-                    textColor="inherit"
-                    indicatorColor="secondary"
-                  >
-                    <Tab
-                      label="赤ワインで診断"
-                      sx={{
-                        fontSize: "1.1rem",
-                        ":hover": {
-                          color: "black",
-                          border: "none",
-                          background: "rgba(0, 0, 0, 0.4)",
-                          background: "#DDA0DD",
-                          color: "#1b1b1b",
-                        },
-                      }}
-                    />
-                  </Tabs>
-                </Box>
-              </Link>
-              <Link href={"/shindan/shiro"}>
-                <Box style={{ paddingRight: "20px" }}>
-                  <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="basic tabs example"
-                    textColor="inherit"
-                    indicatorColor="secondary"
-                  >
-                    <Tab
-                      label="白ワインで診断"
                       sx={{
                         fontSize: "1.1rem",
                         ":hover": {
