@@ -54,6 +54,31 @@ export const DefaultLayout: React.FC<{
                 </Typography>
               </Link>
 
+              <Link href={"/login/Signup"}>
+                <Box style={{ paddingRight: "20px" }}>
+                  <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="basic tabs example"
+                    textColor="inherit"
+                    indicatorColor="secondary"
+                  >
+                    <Tab
+                      label="ユーザー登録"
+                      sx={{
+                        fontSize: "1.1rem",
+                        ":hover": {
+                          color: "black",
+                          border: "none",
+                          background: "rgba(0, 0, 0, 0.4)",
+                          background: "#DDA0DD",
+                          color: "#1b1b1b",
+                        },
+                      }}
+                    />
+                  </Tabs>
+                </Box>
+              </Link>
               <Link href={"/login"}>
                 <Box style={{ paddingRight: "20px" }}>
                   <Tabs
