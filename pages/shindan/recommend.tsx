@@ -1,7 +1,7 @@
 //@ts-nocheck
 import type { NextPage } from "next";
 import Head from "next/head";
-import { DefaultLayout } from "../../layout/DefaultLayout";
+import { DefaultLayout } from "../../src/layout/DefaultLayout";
 import {
   Card,
   CardActionArea,

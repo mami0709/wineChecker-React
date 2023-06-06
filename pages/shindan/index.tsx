@@ -1,10 +1,10 @@
 import React from "react";
 import {NextPage} from "next";
-import {DefaultLayout} from "../../layout/DefaultLayout";
+import {DefaultLayout} from "../../src/layout/DefaultLayout";
 import {Button, Typography,Box} from "@mui/material";
 import Link from "next/link";
-import {useAppDispatch} from "../../redux/hook";
-import {resetAnswers} from "../../redux/reducer/question";
+import {useAppDispatch} from "../../src/redux/hook";
+import {resetAnswers} from "../../src/redux/reducer/question";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 

@@ -5,7 +5,7 @@ import {theme} from "../theme";
 import {CacheProvider} from "@emotion/react";
 import createEmotionCache from "../createEmotionCache";
 import {EmotionCache} from "@emotion/cache/dist/emotion-cache.cjs";
-import {store} from "../redux/store";
+import {store} from "../src/redux/store";
 import {Provider} from "react-redux";
 import App from "next/app";
 import parser from "ua-parser-js";

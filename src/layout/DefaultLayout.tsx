@@ -1,10 +1,10 @@
 import React from "react";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import Link from "next/link";
-import "../styles/Home.module.css";
+import "../../styles/Home.module.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import AppTab from "../pages/components/AppTab";
-import ActionTab from "../pages/components/ActionTab";
+import AppTab from "../../pages/components/AppTab";
+import ActionTab from "../../pages/components/ActionTab";
 
 export const DefaultLayout: React.FC<{
   children: React.ReactNode;
@@ -37,7 +37,10 @@ export const DefaultLayout: React.FC<{
         minHeight: "100vh",
       }}
     >
-      <AppBar position="static" style={{ backgroundColor: "rgb(139,0,139)" }}>
+      <AppBar
+        position="static"
+        style={{ backgroundColor: "rgb(139,0,139)", padding: "7px 0" }}
+      >
         <Toolbar>
           <Link href={"/"}>
             <Typography

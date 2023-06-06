@@ -1,10 +1,10 @@
 import React from "react";
 import {NextPage} from "next";
-import {DefaultLayout} from "../../layout/DefaultLayout";
+import {DefaultLayout} from "../../src/layout/DefaultLayout";
 import {Button, CircularProgress, Divider, Grid, Paper, Typography} from "@mui/material";
-import {useAppDispatch, useAppSelector} from "../../redux/hook";
+import {useAppDispatch, useAppSelector} from "../../src/redux/hook";
 import {questionsDef, totalQuestionCount} from "../../definitions/consts";
-import {answerQuestion} from "../../redux/reducer/question";
+import {answerQuestion} from "../../src/redux/reducer/question";
 import {useRouter} from "next/router";
 import useMediaQuery from "@mui/material/useMediaQuery";
 

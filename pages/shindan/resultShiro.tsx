@@ -1,6 +1,6 @@
 import React from "react";
 import { NextPage } from "next";
-import { DefaultLayout } from "../../layout/DefaultLayout";
+import { DefaultLayout } from "../../src/layout/DefaultLayout";
 import {
   Button,
   Divider,
@@ -10,7 +10,7 @@ import {
   Box,
   CardMedia,
 } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../src/redux/hook";
 import { questionsDef, resultMessageShiroDef } from "../../definitions/consts";
 import Link from "next/link";
 import useMediaQuery from "@mui/material/useMediaQuery";
