@@ -25,7 +25,7 @@ const Home: NextPage = () => {
   React.useEffect(() => {
     //ページを開いた時にリセットする
     dispatch(resetAnswers());
-  }, []);
+  }, [dispatch]);
 
   //レスポンシブ設定を定義
   const matches = useMediaQuery("(min-width:767px)");
