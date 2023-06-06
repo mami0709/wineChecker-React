@@ -1,50 +1,69 @@
-//@ts-nocheck
 import type { NextPage } from "next";
-import Head from "next/head";
 import { DefaultLayout } from "../../src/layout/DefaultLayout";
 import {
   Card,
   CardActionArea,
   CardContent,
-  CardHeader,
   CardMedia,
   Grid,
   Typography,
-  Button,
 } from "@mui/material";
 import Link from "next/link";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import React from "react";
 import axios from "axios";
 
-const backendBaseUrl = "http://localhost:8080";
+// Styles
+const cardStyle = { textAlign: "left", height: 450 };
+const gridStyle = {
+  height: "100",
+  width: "200",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+const mediaStyle = { height: "100", width: "auto" };
 
-//ワインの品種等掲載
-const WineCard: React.FC<{
-  data: any;
-}> = ({ data }) => {
-  // PCならtrue, mobileならfalse
-  const matches = useMediaQuery("(min-width:767px)");
+// wineTypeに応じて背景色を変更
+const WineType: React.FC<{ wineType: string }> = ({ wineType }) => {
+  const backgroundColor =
+    wineType === "赤ワイン"
+      ? "red"
+      : wineType === "白ワイン"
+      ? "#10B981"
+      : "grey";
+  return (
+    <span style={{ backgroundColor, color: "white", padding: "3px 10px" }}>
+      {wineType}
+    </span>
+  );
+};
 
+const WineCard: React.FC<{ data }> = ({ data }) => {
   return (
     <Link href={`/shindan/${data.id}`}>
-      <Card sx={{ textAlign: "left", height: 385 }}>
+      <Card sx={cardStyle}>
         <CardActionArea>
-          <Grid sx={{ height: "100", width: "200" }}>
+          <Grid sx={gridStyle}>
             <CardMedia
               component="img"
               height="200"
-              image={`${backendBaseUrl}/${data.wine_image}`}
-              sx={{ height: "100", width: "auto", marginLeft: 16 }}
+              image={`${data.wine_image}`}
+              sx={mediaStyle}
             />
           </Grid>
           <CardContent>
-            <Typography variant="h6">{data.wine_name}</Typography>
-            <Typography gutterBottom>{data.winery}</Typography>
-            <Typography>{data.wine_type}</Typography>
-            <Typography>{data.wine_country}</Typography>
-            <Typography>{data.capacity}ml</Typography>
-            <Typography variant="body2">{/* {data.description} */}</Typography>
+            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              {data.wine_name}
+            </Typography>
+            <Typography sx={{ paddingTop: "5px" }}>
+              <WineType wineType={data.wine_type} />
+            </Typography>
+            <Typography sx={{ paddingTop: "5px" }}>
+              {data.wine_country} {data.winery}
+            </Typography>
+            <Typography variant="body2" sx={{ paddingTop: "5px" }}>
+              {data.one_word}
+            </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
@@ -53,88 +72,43 @@ const WineCard: React.FC<{
 };
 
 const Recommend: NextPage = () => {
-  // PCならtrue, mobileならfalse
-  const matches = useMediaQuery("(min-width:767px)");
-
-  //バックエンドとの繋ぎ込み処理
   const [loading, setLoading] = React.useState(false);
   const [wineList, setWineList] = React.useState(undefined);
 
+  // マウント時にワインリストを取得する
   React.useEffect(() => {
     setLoading(true);
-    axios
-      .get("http://localhost:8080/recommend.php", {
-        // headers: {
-        //   "Content-Type": "application/x-www-form-urlencoded",
-        //   "Access-Control-Allow-Origin": "*",
-        // },
-      })
-      .then((res) => {
-        const { result, data } = res.data;
-        if (result === "SUCCESS") {
-          setWineList(data);
-        }
-        setLoading(false);
-      });
+    axios.get("http://localhost:8080/recommend.php", {}).then((res) => {
+      const { result, data } = res.data;
+      if (result === "SUCCESS") {
+        setWineList(data);
+      }
+      setLoading(false);
+    });
   }, []);
+
+  const gridContainerStyle = {
+    width: "80%",
+    margin: "0px auto",
+    marginTop: 50,
+    marginBottom: 70,
+  };
 
   return (
     <DefaultLayout>
-      {matches ? (
-        <>
-          <div style={{ width: "100%" }}>
-            <Grid
-              container
-              spacing={2}
-              style={{
-                width: "80%",
-                margin: "0px auto",
-                marginTop: 50,
-                marginBottom: 70,
-              }}
-            >
-              {loading ? (
-                <>Loading中</>
-              ) : (
-                <>
-                  {wineList?.map((wine) => (
-                    <Grid item xs={3} key={wine.id}>
-                      <WineCard data={wine} />
-                    </Grid>
-                  ))}
-                </>
-              )}
-            </Grid>
-          </div>
-        </>
-      ) : (
-        <>
-          <div style={{ width: "100%", height: "100%" }}>
-            <Grid
-              container
-              spacing={2}
-              style={{
-                width: "80%",
-                margin: "0px auto",
-                marginTop: 10,
-                marginBottom: 70,
-              }}
-            >
-              {loading ? (
-                <>Loading中</>
-              ) : (
-                <>
-                  {wineList?.map((wine) => (
-                    <Grid item xs={12} key={wine.id}>
-                      <WineCard data={wine} />
-                    </Grid>
-                  ))}
-                </>
-              )}
-            </Grid>
-          </div>
-        </>
-      )}
+      <div style={{ width: "100%" }}>
+        <Grid container spacing={2} style={gridContainerStyle}>
+          {loading ? (
+            <>Loading中</>
+          ) : (
+            wineList?.map((wine) => (
+              <Grid item xs={3} key={wine.id}>
+                <WineCard data={wine} />
+              </Grid>
+            ))
+          )}
+        </Grid>
+      </div>
     </DefaultLayout>
   );
 };
