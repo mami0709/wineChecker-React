@@ -16,7 +16,7 @@ export const useQuestionData = () => {
   // 全ての質問を回答したかどうか
   const finished = questionNum >= questionsDef.length;
 
-  //タイムアウト時の処理
+  //タイムアウト時の処理と診断が終了した時の処理
   React.useEffect(() => {
     if (finished) {
       setTimeout(() => {

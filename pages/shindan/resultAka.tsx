@@ -1,229 +1,146 @@
 import React from "react";
 import { NextPage } from "next";
 import { DefaultLayout } from "../../src/layout/DefaultLayout";
-import {
-  Button,
-  Divider,
-  Grid,
-  Paper,
-  Typography,
-  CardMedia,
-  Box,
-} from "@mui/material";
+import { Button, Grid, Paper, Typography } from "@mui/material";
 import { useAppSelector } from "../../src/redux/hook";
-import { resultMessageDef } from "../../definitions/consts";
 import Link from "next/link";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import axios from "axios";
+import Image from "next/image";
+import { resultMessageDef } from "../../definitions/consts";
 
 export const ResultAka: NextPage = () => {
-  const totalPoint = useAppSelector((state) => state.question.totalPoint); //totalPointにquestion＋totalPointを代入
-  const rank = useAppSelector((state) => state.question.rank); //rankにquestion＋rankを代入
-  const backendBaseUrl = "http://localhost:8080";
-  const matches = useMediaQuery("(min-width:767px)"); //レスポンシブ設定を定義
+  const rank = useAppSelector((state) => state.question.rank);
+  const matches = useMediaQuery("(min-width:767px)");
 
   const [wineList, setWineList] = React.useState(null);
-  const [loading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
-  // バックエンドとの繋ぎ込み
   React.useEffect(() => {
-    axios.get("http://localhost:8080/recommend.php", {}).then((res) => {
-      const { result, data } = res.data;
-      if (result === "SUCCESS") {
-        setWineList(data);
-      }
-      if (loading) {
-        return <>loading...</>;
-      }
-    });
+    axios
+      .get("http://localhost:8080/resultAka.php", {})
+      .then((res) => {
+        const { result, data } = res.data;
+        if (result === "SUCCESS") {
+          setWineList(data);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
-  const resultMessage = wineList?.[rank]; //rankに応じた結果の文言
+  if (loading) {
+    return <>Loading...</>;
+  }
+
+  const resultMessage = wineList?.[rank];
   const resultImage = wineList?.[rank];
   const Message = resultMessageDef?.[rank]; //rankに応じた結果の文言
 
   return (
     <DefaultLayout>
-      {matches ? (
-        <>
-          <div style={{ width: "100%", top: "55%", left: "50%" }}>
-            <Paper sx={{ padding: 5 }}>
-              <Typography variant={"h5"} style={{ fontSize: "3rem" }}>
-                診断結果
-              </Typography>
-              <Divider sx={{ mt: 2, mb: 4 }} />
-              <Typography variant={"h5"}>
-                <p style={{ fontSize: "2rem", lineHeight: "0.2em" }}>
-                  あなたにおすすめのワインは…
-                </p>
-                <p style={{ fontSize: "2rem", fontWeight: "bold" }}>
-                  {Message}
-                </p>
-                <p
-                  style={{
-                    fontSize: "3rem",
-                    fontWeight: "bold",
-                    lineHeight: "1.1em",
-                  }}
-                >
-                  {resultMessage?.wine_name}
-                </p>
-                <p
-                  style={{
-                    fontSize: "2rem",
-                    fontWeight: "bold",
-                    lineHeight: "1.1em",
-                  }}
-                >
-                  {resultMessage?.one_word}
-                </p>
-              </Typography>
-
-              <Box style={{ height: "50%", width: "auto", margin: "0px auto" }}>
-                <CardMedia
-                  component="img"
-                  image={`${backendBaseUrl}/${resultImage?.wine_image}`}
-                  sx={{ height: "auto", width: "8%", margin: "0px auto" }}
-                />
-              </Box>
-
-              <Grid
-                container
-                sx={{ mt: 5 }}
-                spacing={2}
-                style={{ display: "flex", justifyContent: "center" }}
+      <Paper style={{ padding: 5, paddingTop: "50px" }}>
+        <Grid style={{ width: "80%", margin: "0 auto", maxWidth: "1200px" }}>
+          <div style={{ borderBottom: "2px solid red", paddingBottom: "15px" }}>
+            <Typography variant={"h4"} style={{ fontWeight: "bold" }}>
+              診断結果
+            </Typography>
+            <Grid style={{ display: "flex" }}>
+              <Image
+                src="/images/budou.png"
+                alt="icon"
+                layout="intrinsic"
+                height={50}
+                width={50}
+              />
+              <Typography
+                variant={"h4"}
+                style={{ paddingTop: "20px", color: "red" }}
               >
-                <Grid item xs={3}>
-                  <Link href={"/shindan"}>
-                    <Button
-                      style={{
-                        fontSize: "1.8rem",
-                        color: "#fff",
-                        backgroundColor: "#DDA0DD",
-                        borderRadius: "100vh",
-                        padding: 15,
-                        paddingRight: "50px",
-                        paddingLeft: "50px",
-                      }}
-                      sx={{ ":hover": { opacity: 0.8 } }}
-                    >
-                      もう一度
-                    </Button>
-                  </Link>
-                </Grid>
-                <Grid item xs={3}>
-                  <Link href={"/"}>
-                    <Button
-                      style={{
-                        fontSize: "1.8rem",
-                        color: "#fff",
-                        backgroundColor: "#9370DB",
-                        borderRadius: "100vh",
-                        padding: 15,
-                      }}
-                      sx={{ ":hover": { opacity: 0.8 } }}
-                    >
-                      トップページに戻る
-                    </Button>
-                  </Link>
-                </Grid>
-              </Grid>
-            </Paper>
+                {resultMessage?.one_word}
+              </Typography>
+            </Grid>
           </div>
-        </>
-      ) : (
-        <>
-          <div style={{ width: "100%", top: "55%", left: "50%" }}>
-            <Paper sx={{ padding: 5 }}>
-              <Typography variant={"h5"} style={{ fontSize: "2rem" }}>
-                診断結果
+          <Grid
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: "30px",
+            }}
+          >
+            <Grid style={{ padding: "40px 80px" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${resultImage?.wine_image}`}
+                height="500px"
+                width="auto"
+                alt="result image"
+              />
+            </Grid>
+            <Grid item container direction="column" justifyContent="center">
+              <Typography variant={"h4"} style={{ fontWeight: "bold" }}>
+                {resultMessage?.wine_name}
               </Typography>
-              <Divider sx={{ mt: 2, mb: 4 }} />
-              <Typography variant={"h5"}>
-                <p style={{ fontSize: "1.3rem" }}>
-                  あなたにおすすめのワインは…
-                </p>
-                <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                  {Message}
-                </p>
-                <p
-                  style={{
-                    fontSize: "2.5rem",
-                    fontWeight: "bold",
-                    lineHeight: "1.1em",
-                  }}
-                >
-                  {resultMessage?.name}
-                </p>
-                <p
-                  style={{
-                    fontSize: "2rem",
-                    fontWeight: "bold",
-                    lineHeight: "1.1em",
-                  }}
-                >
-                  {resultMessage?.oneWord}
-                </p>
-              </Typography>
-
-              <Box style={{ height: "50%", width: "auto", margin: "0px auto" }}>
-                <CardMedia
-                  component="img"
-                  image={`${backendBaseUrl}${resultImage?.image.src}`}
-                  sx={{ height: "auto", width: "50%", margin: "0px auto" }}
-                />
-              </Box>
-
-              <Grid
-                container
-                sx={{ mt: 5 }}
-                spacing={2}
-                style={{
-                  display: "flex",
-                  flexFlow: "column",
-                  justifyContent: "space-around",
-                  paddingLeft: 50,
-                }}
+              <Typography
+                variant={"h5"}
+                style={{ paddingTop: "20px", color: "red" }}
               >
-                <Grid item xs={3}>
-                  <Link href={"/shindan"}>
-                    <Button
-                      style={{
-                        fontSize: "1.5rem",
-                        color: "#fff",
-                        backgroundColor: "#DDA0DD",
-                        borderRadius: "100vh",
-                        padding: 15,
-                        paddingRight: "50px",
-                        paddingLeft: "50px",
-                        width: "250px",
-                      }}
-                    >
-                      もう一度
-                    </Button>
-                  </Link>
-                </Grid>
-                <Grid item xs={3}>
-                  <Link href={"/"}>
-                    <Button
-                      style={{
-                        fontSize: "1.5rem",
-                        color: "#fff",
-                        backgroundColor: "#9370DB",
-                        borderRadius: "100vh",
-                        padding: 15,
-                        width: "250px",
-                      }}
-                    >
-                      トップページに戻る
-                    </Button>
-                  </Link>
-                </Grid>
-              </Grid>
-            </Paper>
-          </div>
-        </>
-      )}
+                {Message}
+              </Typography>
+              <Typography variant={"h6"} style={{ paddingTop: "40px" }}>
+                あなたにおすすめのワインは、
+                {resultMessage?.comment}
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            spacing={10}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              paddingBottom: "30px",
+            }}
+          >
+            <Grid item>
+              <Link href={"/"}>
+                <Button
+                  style={{
+                    fontSize: "1.3rem",
+                    color: "#fff",
+                    backgroundColor: "#DDA0DD",
+                    borderRadius: "5px",
+                    padding: "10px 35px",
+                  }}
+                  sx={{ ":hover": { opacity: 0.8 } }}
+                >
+                  もう一度
+                </Button>
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href={"/"}>
+                <Button
+                  style={{
+                    fontSize: "1.3rem",
+                    color: "#fff",
+                    backgroundColor: "#9370DB",
+                    borderRadius: "5px",
+                    padding: "10px 30px",
+                  }}
+                  sx={{ ":hover": { opacity: 0.8 } }}
+                >
+                  ワインの詳細を見る
+                </Button>
+              </Link>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Paper>
     </DefaultLayout>
   );
 };
