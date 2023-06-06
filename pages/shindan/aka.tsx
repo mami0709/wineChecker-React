@@ -19,14 +19,12 @@ const styles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)",
-    fontFamily: "HiraMinProN-W3",
   },
   button: (color: string) => ({
     fontSize: "1.5rem",
     borderColor: color,
     backgroundColor: "#white",
     color: color,
-    fontFamily: "HiraMinProN-W3",
     "&:hover": {
       borderColor: color,
       backgroundColor: color,
@@ -48,17 +46,14 @@ export const Aka: NextPage = () => {
       <div style={styles.wrapper}>
         {finished ? (
           <>
-            <Typography
-              variant={"h5"}
-              style={{ fontSize: "3rem", fontFamily: "HiraMinProN-W3" }}
-            >
+            <Typography variant={"h5"} style={{ fontSize: "3rem" }}>
               Done!
             </Typography>
             <CircularProgress sx={{ mt: 3 }} />
           </>
         ) : (
           <>
-            <Typography variant={"h4"} style={{ fontFamily: "HiraMinProN-W3" }}>
+            <Typography variant={"h4"}>
               Q{questionNum + 1}
               {"."}
               {currentQuestion?.q}

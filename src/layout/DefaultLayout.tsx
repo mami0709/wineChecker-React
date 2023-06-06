@@ -48,7 +48,6 @@ export const DefaultLayout: React.FC<{
               component="div"
               sx={{
                 flexGrow: 1,
-                fontFamily: "HiraMinProN-W3",
                 fontSize: "3rem",
                 cursor: "pointer",
               }}

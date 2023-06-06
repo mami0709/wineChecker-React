@@ -9,9 +9,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Image from "next/image";
 
 const HomePageText = ({ children }) => (
-  <Typography variant="h6" sx={{ fontFamily: "HiraMinProN-W3" }}>
-    {children}
-  </Typography>
+  <Typography variant="h6">{children}</Typography>
 );
 
 type HomePageButtonProps = {
@@ -40,7 +38,6 @@ const HomePageButton: React.FC<HomePageButtonProps> = ({
         },
         fontSize: "18px",
         fontWeight: "bold",
-        fontFamily: "HiraMinProN-W3",
         ...style,
       }}
     >
@@ -82,21 +79,12 @@ const Home: NextPage = () => {
             </HomePageText>
           </Grid>
           <Grid sx={{ paddingTop: "30px" }}>
-            <Typography
-              variant="h4"
-              color="#CD1919"
-              sx={{ fontFamily: "HiraMinProN-W3" }}
-            >
+            <Typography variant="h4" color="#CD1919">
               \ 好みのワインを簡単に診断！ /
             </Typography>
           </Grid>
           <Grid sx={{ paddingTop: "30px" }}>
-            <Typography
-              variant="h2"
-              color="#CD1919"
-              fontWeight="bold"
-              sx={{ fontFamily: "HiraMinProN-W3" }}
-            >
+            <Typography variant="h2" color="#CD1919" fontWeight="bold">
               ワイン診断
             </Typography>
           </Grid>
