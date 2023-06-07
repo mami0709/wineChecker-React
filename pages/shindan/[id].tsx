@@ -17,28 +17,30 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const WineDetail: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const backendBaseUrl = "http://localhost:8080/recommend.php";
+  const backendBaseUrl = "http://localhost:8080/recommend[id].php";
   //レスポンシブ設定を定義
   const matches = useMediaQuery("(min-width:767px)");
 
   //バックエンドとの繋ぎ込み処理
-  const [loading] = React.useState(false);
-  const [wineList, setWineList] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+  const [wineData, setWineData] = React.useState(null);
 
   React.useEffect(() => {
     if (id) {
-      // setLoading(true);
-      axios.get(`http://localhost:8080/recommend.php/${id}`).then((res) => {
+      setLoading(true);
+      axios.get(`${backendBaseUrl}?id=${id}`).then((res) => {
         const { result, data } = res.data;
         if (result === "SUCCESS") {
-          setWineList(data);
+          setWineData(data[0]); // ここで data の最初の要素を取得します。
         }
-        if (loading) {
-          return <>loading...</>;
-        }
+        setLoading(false);
       });
     }
   }, [id]);
+
+  if (loading) {
+    return <>loading...</>;
+  }
 
   return (
     <DefaultLayout>
@@ -54,7 +56,7 @@ const WineDetail: NextPage = () => {
           <Card sx={{ height: "100vh", width: "50vh", margin: "10px" }}>
             <CardMedia
               component="img"
-              image={`${wineList?.wine_image}`}
+              image={wineData?.wine_image}
               sx={{
                 height: "100%",
                 width: "auto",
@@ -87,31 +89,31 @@ const WineDetail: NextPage = () => {
                 fontWeight: "bold",
               }}
             >
-              {wineList?.wine_name}
+              {wineData?.wine_name}
             </Typography>
             <Box sx={{ borderBottom: 5, marginBottom: 5, color: "white" }} />
             <Typography variant="h5">
               【種類】
-              {wineList?.wine_type}
+              {wineData?.wine_type}
             </Typography>
             <Typography variant="h5" sx={{ marginTop: "10px" }}>
-              【おすすめ一言】{wineList?.one_word}
+              【おすすめ一言】{wineData?.one_word}
             </Typography>
             <Typography variant="h5" sx={{ marginTop: "10px" }}>
-              【原産国名】{wineList?.wine_country}
+              【原産国名】{wineData?.wine_country}
             </Typography>
             <Typography variant="h5" sx={{ marginTop: "10px" }}>
-              【産地】{wineList?.winery}
+              【産地】{wineData?.winery}
             </Typography>
             <Typography variant="h5" sx={{ marginTop: "10px" }}>
-              【ぶどう品種】{wineList?.breed}
+              【ぶどう品種】{wineData?.breed}
             </Typography>
             <Typography variant="body1" sx={{ marginTop: "10px" }}>
-              【詳細】{wineList?.comment}
+              【詳細】{wineData?.comment}
             </Typography>
             <Link
               target="_blank"
-              href={wineList?.link}
+              href={wineData?.link}
               sx={{
                 marginTop: "30px",
                 textAlign: "center",
