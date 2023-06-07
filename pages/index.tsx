@@ -1,49 +1,16 @@
 import type { NextPage } from "next";
 import { DefaultLayout } from "../src/layout/DefaultLayout";
 import { Grid, Typography, Button } from "@mui/material";
-import Link from "next/link";
+
 import { useAppDispatch } from "../src/redux/hook";
 import { resetAnswers } from "../src/redux/reducer/question";
 import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Image from "next/image";
+import { OutlineButton } from "./components/Button/outlineButton";
 
 const HomePageText = ({ children }) => (
   <Typography variant="h6">{children}</Typography>
-);
-
-type HomePageButtonProps = {
-  href: string;
-  color: string;
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-};
-
-const HomePageButton: React.FC<HomePageButtonProps> = ({
-  href,
-  color,
-  children,
-  style,
-}) => (
-  <Link href={href}>
-    <Button
-      variant="outlined"
-      sx={{
-        borderColor: color,
-        color: color,
-        "&:hover": {
-          backgroundColor: color,
-          color: "white",
-          borderColor: color,
-        },
-        fontSize: "18px",
-        fontWeight: "bold",
-        ...style,
-      }}
-    >
-      {children}
-    </Button>
-  </Link>
 );
 
 const Home: NextPage = () => {
@@ -89,16 +56,16 @@ const Home: NextPage = () => {
             </Typography>
           </Grid>
           <Grid sx={{ paddingTop: "30px" }}>
-            <HomePageButton href={"/shindan/aka"} color="#CD1919">
+            <OutlineButton href={"/shindan/aka"} color="#CD1919">
               赤ワインで診断
-            </HomePageButton>
-            <HomePageButton
+            </OutlineButton>
+            <OutlineButton
               href={"/shindan/shiro"}
               color="#10B981"
               style={{ marginLeft: "20px" }}
             >
               白ワインで診断
-            </HomePageButton>
+            </OutlineButton>
           </Grid>
         </Grid>
       </>
