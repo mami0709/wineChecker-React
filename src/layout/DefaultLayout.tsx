@@ -90,7 +90,7 @@ export const DefaultLayout: React.FC<{
               />
             </>
           )}
-          <Link href={"/shindan"}>
+          <Link href={"/"}>
             <Button
               color="inherit"
               sx={{

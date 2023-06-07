@@ -6,6 +6,8 @@ type OutlineButtonProps = {
   color: string;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  onClick?: () => void;
+  fullWidth?: boolean;
 };
 
 // 外枠のあるボタンコンポーネント。color指定するだけで利用可能。
@@ -14,6 +16,8 @@ export const OutlineButton: React.FC<OutlineButtonProps> = ({
   color,
   children,
   style,
+  onClick,
+  fullWidth = false,
 }) => (
   <Link href={href}>
     <Button
@@ -30,6 +34,8 @@ export const OutlineButton: React.FC<OutlineButtonProps> = ({
         fontWeight: "bold",
         ...style,
       }}
+      onClick={onClick}
+      fullWidth={fullWidth}
     >
       {children}
     </Button>

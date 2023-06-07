@@ -1,17 +1,12 @@
 import React from "react";
 import { NextPage } from "next";
 import { DefaultLayout } from "../../src/layout/DefaultLayout";
-import {
-  Button,
-  CircularProgress,
-  Divider,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { CircularProgress, Divider, Grid, Typography } from "@mui/material";
 import { useAppDispatch } from "../../src/redux/hook";
 import { answerQuestion } from "../../src/redux/reducer/question";
 import Image from "next/image";
 import { useQuestionData } from "../../src/hooks/useQuestionData";
+import { OutlineButton } from "../components/Button/outlineButton";
 
 const styles = {
   wrapper: {
@@ -20,17 +15,6 @@ const styles = {
     left: "50%",
     transform: "translate(-50%,-50%)",
   },
-  button: (color: string) => ({
-    fontSize: "1.5rem",
-    borderColor: color,
-    backgroundColor: "#white",
-    color: color,
-    "&:hover": {
-      borderColor: color,
-      backgroundColor: color,
-      color: "white",
-    },
-  }),
 };
 
 export const Shiro: NextPage = () => {
@@ -75,24 +59,26 @@ export const Shiro: NextPage = () => {
               style={{ marginLeft: "auto", marginRight: "auto" }}
             >
               <Grid item xs={6}>
-                <Button
-                  variant={"outlined"}
-                  fullWidth
+                <OutlineButton
+                  fullWidth={true}
+                  href={"#"}
                   onClick={() => handleButtonClick(1)}
-                  style={styles.button("#CD1919")}
+                  color="#CD1919"
+                  style={{ fontSize: "1.5rem" }}
                 >
                   {currentQuestion?.a1}
-                </Button>
+                </OutlineButton>
               </Grid>
               <Grid item xs={6}>
-                <Button
-                  variant="outlined"
-                  fullWidth
-                  onClick={() => handleButtonClick(2)}
-                  style={styles.button("#10B981")}
+                <OutlineButton
+                  fullWidth={true}
+                  href={"#"}
+                  onClick={() => handleButtonClick(1)}
+                  color="#10B981"
+                  style={{ fontSize: "1.5rem" }}
                 >
                   {currentQuestion?.a2}
-                </Button>
+                </OutlineButton>
               </Grid>
             </Grid>
           </>
