@@ -44,23 +44,64 @@ const WineRegistration = () => {
     }));
   }, []);
 
+  // バリデーションチェックの処理
+  const [errors, setErrors] = useState({});
+  const validate = () => {
+    let tempErrors = {};
+    let formIsValid = true;
+
+    // 入力必須項目
+    const notNullFields = [
+      "wine_name",
+      "winery",
+      "wine_type",
+      "wine_image",
+      "wine_country",
+      "wine_url",
+      "breed",
+    ];
+
+    for (let field of notNullFields) {
+      if (!wineInfo[field]) {
+        formIsValid = false;
+        tempErrors[field] = "入力必須項目が未入力です。入力してください";
+      }
+    }
+
+    // 容量の項目のバリデーションチェック
+    if (wineInfo.capacity && !Number.isInteger(Number(wineInfo.capacity))) {
+      formIsValid = false;
+      tempErrors["capacity"] = "半角数字で入力して下さい";
+    }
+
+    setErrors(tempErrors);
+    return formIsValid;
+  };
+
   const handleSubmit = (e) => {
     console.log("handleSubmit function is triggered");
     e.preventDefault();
-    console.log(wineInfo);
-    axios
-      .post("http://localhost:8080/newPost.php", wineInfo, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        alert(response.data.message);
-      })
-      .catch((error) => {
-        console.error(`Error: ${error}`);
-      });
+
+    if (validate()) {
+      console.log(wineInfo);
+      axios
+        .post("http://localhost:8080/newPost.php", wineInfo, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.error) {
+            alert(response.data.error);
+          } else {
+            alert(response.data.message);
+          }
+        })
+        .catch((error) => {
+          console.error(`Error: ${error}`);
+        });
+    }
   };
 
   return (
@@ -86,6 +127,8 @@ const WineRegistration = () => {
                   label={customLabels[key]}
                   value={wineInfo[key]}
                   handleChange={handleChange}
+                  error={!!errors[key]} // このキーにエラーがある場合、trueになる
+                  helperText={errors[key]} // 画面にエラーメッセージの表示
                 />
               </Grid>
             ))}

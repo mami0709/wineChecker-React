@@ -22,12 +22,19 @@ const StyledTextField = styled(TextField)({
   },
 });
 
-const CustomTextField = ({ name, label, value, handleChange }) => {
+const CustomTextField = ({
+  name,
+  label,
+  value,
+  handleChange,
+  error,
+  helperText,
+}) => {
   const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {
     handleChange(name, localValue);
-}, [localValue, handleChange, name]);
+  }, [localValue, handleChange, name]);
   return (
     <StyledTextField
       variant="outlined"
@@ -36,6 +43,8 @@ const CustomTextField = ({ name, label, value, handleChange }) => {
       label={label}
       value={localValue}
       onChange={(e) => setLocalValue(e.target.value)}
+      error={error}
+      helperText={helperText}
     />
   );
 };
