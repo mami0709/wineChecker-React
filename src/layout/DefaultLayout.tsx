@@ -110,7 +110,7 @@ export const DefaultLayout: React.FC<{
           textAlign: "center",
           margin: "0px auto",
           width: "100",
-          height: "100vh",
+          height: "100%",
         }}
       >
         {children}
