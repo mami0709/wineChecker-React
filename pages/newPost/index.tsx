@@ -3,39 +3,54 @@ import axios from "axios";
 import { DefaultLayout } from "../../src/layout/DefaultLayout";
 import { Grid, Typography, Box, Button, Container } from "@mui/material";
 import CustomTextField from "../components/CustomTextField";
+import { useRouter } from "next/router";
+
+const initialWineInfo = {
+  wine_name: "",
+  english_wine_name: "",
+  winery: "",
+  wine_country: "",
+  wine_type: "",
+  wine_image: "",
+  years: "",
+  producer: "",
+  wine_url: "",
+  one_word: "",
+  breed: "",
+  capacity: "",
+  comment: "",
+};
+
+const customLabels = {
+  comment: "詳細コメント",
+  wine_name: "ワイン名*",
+  winery: "ワイナリー*",
+  wine_type: "ワインの種類(赤ワイン、白ワインetc)*",
+  wine_image: "ワイン画像のURL*",
+  wine_country: "産地*",
+  wine_url: "ワインのURL*",
+  one_word: "おすすめワード",
+  english_wine_name: "ワイン名(英名)",
+  years: "生産年",
+  producer: "製造者",
+  breed: "ぶどうの種類*",
+  capacity: "容量",
+};
+
+const notNullFields = [
+  "wine_name",
+  "winery",
+  "wine_type",
+  "wine_image",
+  "wine_country",
+  "wine_url",
+  "breed",
+];
 
 const WineRegistration = () => {
-  const [wineInfo, setWineInfo] = useState({
-    wine_name: "",
-    english_wine_name: "",
-    winery: "",
-    wine_country: "",
-    wine_type: "",
-    wine_image: "",
-    years: "",
-    producer: "",
-    wine_url: "",
-    one_word: "",
-    breed: "",
-    capacity: "",
-    comment: "",
-  });
-
-  const customLabels = {
-    comment: "詳細コメント",
-    wine_name: "ワイン名",
-    winery: "ワイナリー",
-    wine_type: "ワインの種類(赤ワイン、白ワインetc)",
-    wine_image: "ワイン画像のURL",
-    wine_country: "産地",
-    wine_url: "ワインのURL",
-    one_word: "おすすめワード",
-    english_wine_name: "ワイン名(英名)",
-    years: "生産年",
-    producer: "製造者",
-    breed: "ぶどうの種類",
-    capacity: "容量",
-  };
+  const [wineInfo, setWineInfo] = useState(initialWineInfo);
+  const [errors, setErrors] = useState({});
+  const router = useRouter();
 
   const handleChange = useCallback((name, value) => {
     setWineInfo((prevState) => ({
@@ -44,31 +59,17 @@ const WineRegistration = () => {
     }));
   }, []);
 
-  // バリデーションチェックの処理
-  const [errors, setErrors] = useState({});
-  const validate = () => {
+  const validate = useCallback(() => {
     let tempErrors = {};
     let formIsValid = true;
 
-    // 入力必須項目
-    const notNullFields = [
-      "wine_name",
-      "winery",
-      "wine_type",
-      "wine_image",
-      "wine_country",
-      "wine_url",
-      "breed",
-    ];
-
-    for (let field of notNullFields) {
+    notNullFields.forEach((field) => {
       if (!wineInfo[field]) {
         formIsValid = false;
         tempErrors[field] = "入力必須項目が未入力です。入力してください";
       }
-    }
+    });
 
-    // 容量の項目のバリデーションチェック
     if (wineInfo.capacity && !Number.isInteger(Number(wineInfo.capacity))) {
       formIsValid = false;
       tempErrors["capacity"] = "半角数字で入力して下さい";
@@ -76,33 +77,37 @@ const WineRegistration = () => {
 
     setErrors(tempErrors);
     return formIsValid;
-  };
+  }, [wineInfo]);
 
-  const handleSubmit = (e) => {
-    console.log("handleSubmit function is triggered");
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e) => {
+      console.log("handleSubmit function is triggered");
+      e.preventDefault();
 
-    if (validate()) {
-      console.log(wineInfo);
-      axios
-        .post("http://localhost:8080/newPost.php", wineInfo, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          console.log(response.data);
-          if (response.data.error) {
-            alert(response.data.error);
-          } else {
-            alert(response.data.message);
-          }
-        })
-        .catch((error) => {
-          console.error(`Error: ${error}`);
-        });
-    }
-  };
+      if (validate()) {
+        console.log(wineInfo);
+        axios
+          .post("http://localhost:8080/newPost.php", wineInfo, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then((response) => {
+            console.log(response.data);
+            if (response.data.error) {
+              alert(response.data.error);
+            } else {
+              // alert(response.data.message);
+              router.push("/newPost/PostComplete");
+            }
+          })
+          .catch((error) => {
+            console.error(`Error: ${error}`);
+          });
+      }
+    },
+    [validate, wineInfo, router]
+  );
 
   return (
     <DefaultLayout>
