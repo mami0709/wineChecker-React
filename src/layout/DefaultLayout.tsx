@@ -68,12 +68,20 @@ export const DefaultLayout: React.FC<{
             href="/shindan/recommend"
           />
           {isAuthenticated ? (
-            <ActionTab
-              value={value}
-              handleChange={handleChange}
-              label="ログアウト"
-              onClick={handleLogout}
-            />
+            <>
+              <AppTab
+                value={value}
+                handleChange={handleChange}
+                label="マイーページ"
+                href="/login/userInfo"
+              />
+              <ActionTab
+                value={value}
+                handleChange={handleChange}
+                label="ログアウト"
+                onClick={handleLogout}
+              />
+            </>
           ) : (
             <>
               <AppTab
