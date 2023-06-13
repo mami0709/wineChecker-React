@@ -1,34 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# アプリケーション名
 
-## Getting Started
+Wine Checker
 
-First, run the development server:
+# アプリケーション概要
 
-```bash
-npm run dev
-# or
-yarn dev
+ワインは種類が多くてわからない…
+自分に合ったワインを知りたい。そんな人のために 30 秒であなたに合ったおすすめのワインを診断できるアプリです。
+
+# デモ
+
+※書く
+
+# 使用した技術
+
+### フロントエンド
+
+- Next.js
+- TypeScript
+- Redux Toolkit
+- Mui
+- axios
+
+### バックエンド
+
+- PHP
+- MySQL
+- Docker
+
+# デザイン
+
+デザインは最初に Figma で起こしました。
+https://www.figma.com/file/aXsIMaNZ9bn2NV0YsO4M8o/WineChecker%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3?type=design&node-id=0-1&t=BFrK8KTRqfjCDtoH-0
+
+# 環境構築
+
+### はじめに
+
+このアプリはフロントとバックエンドを別々のリポジトリで管理しています。
+なので手元で動かす際はどちらもローカルで起動した上でご使用ください。
+
+バックエンドのリポジトリ
+https://github.com/mami0709/wineChecker-PHP
+
+### バックエンドの環境構築手順
+
+1. git からクローンする
+
+```
+git clone https://github.com/mami0709/wineChecker-PHP.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Docker を起動。  
+   `docker-compose up -d`  
+   http://localhost:8080/ で PHP info が表示されたら OK
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### フロントエンドの環境構築手順
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+1. git からクローンする
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```
+git clone https://github.com/mami0709/wineChecker-React.git
+```
 
-## Learn More
+2. パッケージのインストール
 
-To learn more about Next.js, take a look at the following resources:
+```
+npm i
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. ローカル起動
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+npm run dev
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+http://localhost:3000/ にアクセスしてトップページが表示されれば OK！
