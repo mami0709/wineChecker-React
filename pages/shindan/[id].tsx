@@ -11,7 +11,7 @@ import { OutlineButton } from "../components/Button/outlineButton";
 const WineDetail: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const backendBaseUrl = "http://localhost:8080/recommend[id].php";
+  const backendBaseUrl = "http://localhost:8080/recommend/recommend[id].php";
   //レスポンシブ設定を定義
   const matches = useMediaQuery("(min-width:767px)");
 

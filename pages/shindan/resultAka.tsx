@@ -18,7 +18,7 @@ export const ResultAka: NextPage = () => {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:8080/resultAka.php", {})
+      .get("http://localhost:8080/shindan/resultAka.php", {})
       .then((res) => {
         const { result, data } = res.data;
         if (result === "SUCCESS") {

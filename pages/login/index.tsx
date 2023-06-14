@@ -28,7 +28,7 @@ const LoginForm = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8080/login.php", {
+      const response = await axios.post("http://localhost:8080/login/login.php", {
         email,
         password,
       });

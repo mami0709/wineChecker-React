@@ -32,7 +32,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/userRegistration.php",
+        "http://localhost:8080/userInfo/userRegistration.php",
         {
           email,
           password,

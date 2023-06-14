@@ -87,7 +87,7 @@ const WineRegistration = () => {
       if (validate()) {
         console.log(wineInfo);
         axios
-          .post("http://localhost:8080/newPost.php", wineInfo, {
+          .post("http://localhost:8080/recommend/newPost.php", wineInfo, {
             headers: {
               "Content-Type": "application/json",
             },

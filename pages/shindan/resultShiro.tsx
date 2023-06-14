@@ -18,7 +18,7 @@ export const ResultShiro: NextPage = () => {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:8080/resultShiro.php", {})
+      .get("http://localhost:8080/shindan/resultShiro.php", {})
       .then((res) => {
         const { result, data } = res.data;
         if (result === "SUCCESS") {
