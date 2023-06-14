@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { DefaultLayout } from "../src/layout/DefaultLayout";
-import { Grid, Typography, Button } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 import { useAppDispatch } from "../src/redux/hook";
 import { resetAnswers } from "../src/redux/reducer/question";

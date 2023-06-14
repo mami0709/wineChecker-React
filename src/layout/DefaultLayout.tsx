@@ -72,7 +72,7 @@ export const DefaultLayout: React.FC<{
               <AppTab
                 value={value}
                 handleChange={handleChange}
-                label="マイーページ"
+                label="マイページ"
                 href="/login/userInfo"
               />
               <ActionTab
