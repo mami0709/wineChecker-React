@@ -8,6 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import axios from "axios";
 import Image from "next/image";
 import { resultMessageDef } from "../../definitions/consts";
+import { GiGrapes } from "react-icons/gi";
 
 export const ResultAka: NextPage = () => {
   const rank = useAppSelector((state) => state.question.rank);
@@ -23,10 +24,14 @@ export const ResultAka: NextPage = () => {
         const { result, data } = res.data;
         if (result === "SUCCESS") {
           setWineList(data);
+        } else {
+          // サーバーからエラーレスポンスが返されたときの処理
+          console.error("Server returned an error response:", res);
         }
       })
       .catch((err) => {
-        console.error(err);
+        // ネットワークエラーやリクエストが中断されたときの処理
+        console.error("An error occurred while fetching data:", err);
       })
       .finally(() => {
         setLoading(false);
@@ -50,13 +55,7 @@ export const ResultAka: NextPage = () => {
               診断結果
             </Typography>
             <Grid style={{ display: "flex" }}>
-              <Image
-                src="/images/budou.png"
-                alt="icon"
-                layout="intrinsic"
-                height={50}
-                width={50}
-              />
+              <GiGrapes size={160} />
               <Typography
                 variant={"h4"}
                 style={{ paddingTop: "20px", color: "red" }}
@@ -123,7 +122,7 @@ export const ResultAka: NextPage = () => {
               </Link>
             </Grid>
             <Grid item>
-              <Link href={"/"}>
+              <Link href={`/shindan/${rank}`}>
                 <Button
                   style={{
                     fontSize: "1.3rem",
