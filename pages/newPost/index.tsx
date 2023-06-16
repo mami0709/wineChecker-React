@@ -37,6 +37,7 @@ const customLabels = {
   capacity: "容量",
 };
 
+// 必須入力フィールドの名前を配列で定義
 const notNullFields = [
   "wine_name",
   "winery",
@@ -52,6 +53,7 @@ const WineRegistration = () => {
   const [errors, setErrors] = useState({});
   const router = useRouter();
 
+	// 入力フィールドの状態を見る。変更されると`setWineInfo`が書き変わる。
   const handleChange = useCallback((name, value) => {
     setWineInfo((prevState) => ({
       ...prevState,
@@ -59,6 +61,7 @@ const WineRegistration = () => {
     }));
   }, []);
 
+	// バリデーションチェック
   const validate = useCallback(() => {
     let tempErrors = {};
     let formIsValid = true;
@@ -81,11 +84,11 @@ const WineRegistration = () => {
 
   const handleSubmit = useCallback(
     (e) => {
-      console.log("handleSubmit function is triggered");
-      e.preventDefault();
+      e.preventDefault();// フォームのデフォルトの送信動作を防ぐ
 
       if (validate()) {
         console.log(wineInfo);
+				// バリデーションが成功した場合、非同期でサーバーにデータを送信
         axios
           .post("http://localhost:8080/recommend/newPost.php", wineInfo, {
             headers: {
@@ -93,11 +96,13 @@ const WineRegistration = () => {
             },
           })
           .then((response) => {
+						// サーバーからの応答にエラーが含まれていれば、そのエラーメッセージをアラートとして表示
             console.log(response.data);
             if (response.data.error) {
               alert(response.data.error);
             } else {
-              // alert(response.data.message);
+							// エラーがなければ成功メッセージをアラートとして表示し、ユーザーを「/newPost/PostComplete」ページにリダイレクト
+              alert(response.data.message);
               router.push("/newPost/PostComplete");
             }
           })

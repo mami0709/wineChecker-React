@@ -16,21 +16,23 @@ const initialState: QuestionState = {
 	rank: 0,
 };
 
-export const questionSlice = createSlice({   //createSlice=変数、初期値や値を更新する関数
+export const questionSlice = createSlice({ 
+	// createSlice関数を呼び出して、名前、初期状態、およびreducersを定義
 	name: "question",
 	initialState,
 	reducers: {
-	// 回答した時の処理
-	answerQuestion: (state, action: PayloadAction<{  //PayloadAction = 起こったイベント
+	// 質問に答えたときのロジックを定義
+	answerQuestion: (state, action: PayloadAction<{ 
 		value: number;
 	}>) => {
 		// 配列に回答を追加
-		state.answers = [...state.answers, action.payload.value];  //action.payload = アクションに必要なデータ
-		// 質問番号をインクリメント
-		state.questionNum += 1;  //1を加算して代入
-		state.totalPoint += action.payload.value;  //action.payloadの値を加算して代入
+		state.answers = [...state.answers, action.payload.value]; // valueをanswers配列に追加
+		// questionNumとtotalPointを更新
+		state.questionNum += 1;
+		state.totalPoint += action.payload.value;
 
-		state.rank = state.totalPoint < 5  //トータルポイントが5以上の時rank0の処理へ
+		// totalPointに基づいてrankを設定
+		state.rank = state.totalPoint < 5  //totalPointが5以上の時rank0の処理へ
 			? 0
 			: state.totalPoint < 7  //rankが1の処理へ
 				? 1
@@ -40,8 +42,8 @@ export const questionSlice = createSlice({   //createSlice=変数、初期値や
 	},
 
 	// resetの処理を定義
-    resetAnswers: (state) => {  //stateにinitialState(stateの初期値)を代入
-		return initialState;
+    resetAnswers: (state) => { 
+		return initialState; //直接initialState（初期状態）を返す処理
 	},
 	}
 })

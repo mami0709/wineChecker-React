@@ -16,6 +16,7 @@ const HomePageText = ({ children }) => (
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
 
+  // TOPページに来ると診断結果をリセットする
   React.useEffect(() => {
     dispatch(resetAnswers());
   }, [dispatch]);

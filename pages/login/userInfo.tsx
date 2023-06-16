@@ -31,8 +31,10 @@ const UserInfo = () => {
       return;
     }
 
+		// ログイン済みのユーザーの情報をサーバーから取得する
     const fetchUserInfo = async () => {
       try {
+				// 正当なトークンであれば対応するユーザーの情報を`set〇〇`に格納
         const response = await axios.get(
           `http://localhost:8080/userInfo/getUser.php?token=${token}`
         );
@@ -51,6 +53,7 @@ const UserInfo = () => {
     fetchUserInfo();
   }, []);
 
+	// 「更新する」ボタンを押したときの処理
   const handleEdit = async () => {
     const params = new URLSearchParams();
     params.append("id", userInfo.id);
@@ -64,6 +67,7 @@ const UserInfo = () => {
     console.log(params);
 
     try {
+			// 更新したいユーザー情報を含むPOSTリクエストをサーバーに送信
       await axios.post(
         `http://localhost:8080/userInfo/updateUser.php`,
         JSON.stringify({

@@ -73,7 +73,7 @@ export const Aka: NextPage = () => {
                 <OutlineButton
                   fullWidth={true}
                   href={"#"}
-                  onClick={() => handleButtonClick(1)}
+                  onClick={() => handleButtonClick(2)}
                   color="#10B981"
                   style={{ fontSize: "1.5rem" }}
                 >
