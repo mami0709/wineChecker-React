@@ -7,6 +7,39 @@ Wine Checker
 ワインは種類が多くてわからない…
 自分に合ったワインを知りたい。そんな人のために 30 秒であなたに合ったおすすめのワインを診断できるアプリです。
 
+# 使用した技術
+
+### フロントエンド
+
+- Next.js
+- TypeScript
+- Redux Toolkit
+- Mui
+- axios
+
+### バックエンド
+
+- PHP
+- MySQL
+- Docker
+
+### その他
+
+- GitHub
+- Figma
+- Sequel Ace
+
+
+# 機能一覧
+- ワイン診断機能
+- おすすめ一覧
+- ログイン・ログアウト
+- 新規会員登録
+- ワイン投稿機能
+- マイページ
+- ユーザー編集
+
+
 # 画面
 
 ### トップページ
@@ -45,32 +78,13 @@ Wine Checker
 
 ![image](https://github.com/mami0709/wineChecker-React/assets/111770536/a4632939-612c-440e-aa27-602c69104b2f)
 
-# 使用した技術
 
-### フロントエンド
-
-- Next.js
-- TypeScript
-- Redux Toolkit
-- Mui
-- axios
-
-### バックエンド
-
-- PHP
-- MySQL
-- Docker
-
-### その他
-
-- GitHub
-- Figma
-- Sequel Ace
 
 # デザイン
 
 デザインは最初に Figma で起こしました。
 https://www.figma.com/file/aXsIMaNZ9bn2NV0YsO4M8o/WineChecker%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3?type=design&node-id=0-1&t=BFrK8KTRqfjCDtoH-0
+
 
 # URL 設計
 
