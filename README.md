@@ -9,8 +9,7 @@ Wine Checker
 
 # デモ
 
-![](../../Desktop/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202023-06-25%2018.29.11.png)
-※書く
+![image](https://github.com/mami0709/wineChecker-React/assets/111770536/ff768608-eacb-4643-8722-c2760ef3db9f)
 
 # 使用した技術
 
